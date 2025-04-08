@@ -1,0 +1,2 @@
+# SentimentOfMovieReviewsApp
+SentimentOfMovieReviewsApp React app
