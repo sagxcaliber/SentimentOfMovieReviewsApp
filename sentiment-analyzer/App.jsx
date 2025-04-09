@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import ReviewForm from './components/ReviewForm';
-import ReviewHistory from './components/ReviewHistory';
-import { fetchHistory } from './services/api';
+import ReviewForm from '../components/ReviewForm';
+import ReviewHistory from '../components/ReviewHistory';
+import { fetchHistory } from '../services/api';
 
 function App() {
   const [history, setHistory] = useState([]);
@@ -31,5 +31,9 @@ function App() {
     </div>
   );
 }
+const handleNewResult = (newItem) => {
+  console.log("New item from backend:", newItem); // 🐞 log it!
+  setHistory((prev) => [newItem, ...prev]);
+};
 
 export default App;

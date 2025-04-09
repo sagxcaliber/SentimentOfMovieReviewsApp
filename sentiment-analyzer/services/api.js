@@ -1,35 +1,19 @@
+// src/services/api.js
+
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8000'; // or your deployed backend URL
+const API_BASE = 'http://0.0.0.0:8000';
 
-export const submitReview = (text) =>
-  axios.post(`${API_BASE}/review`, { text });
+export const submitReview = async (text) => {
+  const res = await axios.post(`${API_BASE}/checkSentiment`, {
+    review: text,
+  });
 
-export const fetchHistory = () =>
-  axios.get(`${API_BASE}/history`);
+  // ✅ Return just the first review object (not the full wrapper)
+  return res.data.response[0];
+};
 
-//
-//export const submitReview = async (text) => {
-//  return new Promise((resolve) => {
-//    setTimeout(() => {
-//      resolve({
-//        data: {
-//          sentiment: text.toLowerCase().includes('bad') ? 'negative' : 'positive',
-//          score: Math.random().toFixed(1),
-//        },
-//      });
-//    }, 300);
-//  });
-//};
-//
-//export const fetchHistory = async () => {
-//  return new Promise((resolve) => {
-//    setTimeout(() => {
-//      resolve({
-//        data: [
-//          { text: "The movie was great!", sentiment: "positive", score: 0.9 },
-//        ],
-//      });
-//    }, 300);
-//  });
-//};
+export const fetchHistory = async () => {
+  const res = await axios.get(`${API_BASE}/listReviews`);
+  return res.data.response; // ✅ just the array
+};

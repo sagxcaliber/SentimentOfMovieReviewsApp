@@ -7,16 +7,25 @@ function App() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const res = await fetchHistory();
+        if (Array.isArray(res)) {
+          setHistory(res);
+        } else {
+          console.warn('Invalid history data:', res);
+          setHistory([]);
+        }
+      } catch (err) {
+        console.error('Failed to fetch history', err);
+        setHistory([]);
+      }
+    };
     loadHistory();
   }, []);
 
-  const loadHistory = async () => {
-    const res = await fetchHistory();
-    setHistory(res.data);
-  };
-
   const handleNewResult = (newItem) => {
-    setHistory(prev => [newItem, ...prev]);
+    setHistory((prev) => [newItem, ...prev]);
   };
 
   return (
@@ -25,7 +34,7 @@ function App() {
         Movie Review Sentiment Analyzer
       </h1>
 
-      <div className="w-full max-w-xl border rounded-lg p-6 shadow-sm">
+      <div className="w-full max-w-xl border rounded-lg p-6 shadow-sm bg-gray-50">
         <ReviewForm onResult={handleNewResult} />
       </div>
 

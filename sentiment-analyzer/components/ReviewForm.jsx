@@ -7,10 +7,19 @@ const ReviewForm = ({ onResult }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!text.trim()) return;
+
     setLoading(true);
-    const res = await submitReview(text);
-    onResult({ ...res.data, text });
-    setText('');
+    try {
+      const res = await submitReview(text); // ✅ should return a review object: { review, result, score }
+
+      if (res && res.review) {
+        onResult(res); // ✅ correctly pass to parent
+      }
+      setText('');
+    } catch (err) {
+      console.error('❌ Failed to submit review', err);
+    }
     setLoading(false);
   };
 
