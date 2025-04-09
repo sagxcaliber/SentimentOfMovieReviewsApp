@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8000/api'; // or your deployed backend URL
+const API_BASE = 'http://localhost:8000'; // or your deployed backend URL
 
 export const submitReview = (text) =>
   axios.post(`${API_BASE}/review`, { text });
