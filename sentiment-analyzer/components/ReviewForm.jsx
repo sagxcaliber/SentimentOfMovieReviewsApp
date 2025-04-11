@@ -11,14 +11,14 @@ const ReviewForm = ({ onResult }) => {
 
     setLoading(true);
     try {
-      const res = await submitReview(text); // ✅ should return a review object: { review, result, score }
+      const res = await submitReview(text);
 
       if (res && res.review) {
-        onResult(res); // ✅ correctly pass to parent
+        onResult(res);
       }
       setText('');
     } catch (err) {
-      console.error('❌ Failed to submit review', err);
+      console.error('Failed to submit review', err);
     }
     setLoading(false);
   };

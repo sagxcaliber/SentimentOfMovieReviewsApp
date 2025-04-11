@@ -9,11 +9,11 @@ export const submitReview = async (text) => {
     review: text,
   });
 
-  // ✅ Return just the first review object (not the full wrapper)
+
   return res.data.response[0];
 };
 
 export const fetchHistory = async () => {
   const res = await axios.get(`${API_BASE}/listReviews`);
-  return res.data.response; // ✅ just the array
+  return res.data.response;
 };
